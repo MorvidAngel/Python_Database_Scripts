@@ -11,9 +11,9 @@ def TestDBConnect (SRV, UID, PWD):
     if SRV == os.environ.get('INSQL01'):
         databases = ['AfterMail_TEMP', 'ArchiveManager', 'Audit Store', 'Audit Store Old', 'ConfigDb', 'ConfigDB-Dev', 'ConfigMgmt', 'Content', 'Content Old', 'HEATDiscoveryConfig', 'HEATMetricsCache', 'HEATSM', 'HEATSM-UAT', 'sem5']
     if SRV == os.environ.get('INSQL02'):
-        databases = ['IdentityDirector', 'IvantiEPM', 'IvntAuto', 'SEEMSDb2', 'solarwindsdba']
+        databases = ['IdentityDirector', 'IvantiEPM', 'IvntAuto', 'SEEMSDb2', 'solarwindsdba', 'ReportServer', 'SolarWindsOrionLog', 'SolarWindsNetFlowStorage']
     if SRV == os.environ.get('INSQL03'):
-        databases = ['Audit Store', 'Cognos', 'DSM', 'DYNAMICS', 'FileBoundProd', 'NDP', 'NIB', 'ov_txtsrch', 'SpecsIDBadging', 'TMATE_DBPRD']
+        databases = ['Audit Store', 'Cognos', 'DSM', 'DYNAMICS', 'FileBoundProd', 'NDP', 'NIB', 'ov_txtsrch', 'SpecsIDBadging', 'TMATE_DBPRD', 'Management Reporter']
 
     conn = None
 
