@@ -28,7 +28,7 @@ msg['Subject'] = 'Availibility Group Connection Test'
 msg['From'] = 'pyalert@nib-bahamas.com'
 msg['To'] = 'dthompson@nib-bahamas.com'
 
-with smtplib.SMTP('mail.nib-bahamas.com') as server:
+with smtplib.SMTP('mail.nib-bahamas.com', 25) as server:
 
     server.sendmail(sender, receivers, msg.as_string())
     print("Successfully sent email")
