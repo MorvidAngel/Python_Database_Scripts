@@ -21,7 +21,7 @@ def TestDBConnect (SRV, UID, PWD):
         try:
 
             Logs.append('Connecting to database...'+DB)
-            conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+SRV+';DATABASE='+DB+';UID='+UID+';PWD='+ PWD)
+            conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+SRV+';DATABASE='+DB+';UID='+UID+';PWD='+PWD)
 
             if conn is not None:
                 Logs.append('Connection to database...'+DB+' was sucessesful, Closing Connection.')
