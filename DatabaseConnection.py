@@ -1,7 +1,8 @@
 import pyodbc 
 import os
 import datetime
-
+from email.mime.text import MIMEText
+import smtplib
 
 
 Logs = []
@@ -29,3 +30,15 @@ def TestDBConnect (SRV, UID, PWD):
 
         except (Exception, pyodbc.Error) as error:
             Logs.append(error)
+
+            sender = 'pyalert@nib-bahamas.com'
+            receivers = ['dthompson@nib-bahamas.com']
+            msg = MIMEText(error)
+
+            msg['Subject'] = 'Database Connection Failed'
+            msg['From'] = 'pyalert@nib-bahamas.com'
+            msg['To'] = 'dthompson@nib-bahamas.com'
+
+            with smtplib.SMTP(os.environ.get('SMTPSERVER'), os.environ.get('SMTPPORT'), os.environ.get('SMTPHOSTNAME')) as server:
+
+                server.sendmail(sender, receivers, msg.as_string())
