@@ -15,14 +15,14 @@ TestDBConnect(os.environ.get('INSQL02'), username, os.environ.get('DBPWD02'))
 ##Testing Instance 03
 TestDBConnect(os.environ.get('INSQL03'), username, os.environ.get('DBPWD03'))
 
-errLog = ""
+connLog = ""
 for l in Logs:
-    errLog = errLog + l + '\n'
+    connLog = connLog + l + '\n'
 
 sender = 'pyalert@nib-bahamas.com'
 receivers = ['dthompson@nib-bahamas.com']
 
-msg = MIMEText(errLog)
+msg = MIMEText(connLog)
 
 msg['Subject'] = 'Availibility Group Connection Test'
 msg['From'] = 'pyalert@nib-bahamas.com'

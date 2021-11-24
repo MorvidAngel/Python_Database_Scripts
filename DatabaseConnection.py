@@ -7,6 +7,7 @@ import smtplib
 
 Logs = []
 
+
 def TestDBConnect (SRV, UID, PWD):
     ##Setting databases to check based on server instance
     if SRV == os.environ.get('INSQL01'):
@@ -29,13 +30,13 @@ def TestDBConnect (SRV, UID, PWD):
                 conn.close()
 
         except (Exception, pyodbc.Error) as error:
-            Logs.append(error)
+            Logs.append(str(error))
 
             sender = 'pyalert@nib-bahamas.com'
             receivers = ['dthompson@nib-bahamas.com']
-            msg = MIMEText(error)
+            msg = MIMEText(str(error))
 
-            msg['Subject'] = 'Database Connection Failed'
+            msg['Subject'] = 'ERROR CONNECTION FAILED'
             msg['From'] = 'pyalert@nib-bahamas.com'
             msg['To'] = 'dthompson@nib-bahamas.com'
 
