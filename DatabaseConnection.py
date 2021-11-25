@@ -22,11 +22,11 @@ def TestDBConnect (SRV, UID, PWD):
     for DB in databases:
         ##Attempting to connect to database within a specific instance
         try:
-            Logs.append('Connecting to database...'+DB)
-            conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+SRV+';DATABASE='+DB+';UID='+UID+';PWD='+PWD)
+            Logs.append(f'Connecting to database...{DB}')
+            conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+f'{SRV};DATABASE={DB};UID={UID};PWD={PWD}')
 
             if conn is not None:
-                Logs.append('Connection to database...'+DB+' was successful, Closing Connection.')
+                Logs.append(f'Connection to database...{DB} was successful, Closing Connection.')
                 conn.close()
         ##Send email with error and which database the error occurred with should connection fail to establish
         except (Exception, pyodbc.Error) as error:
@@ -36,7 +36,7 @@ def TestDBConnect (SRV, UID, PWD):
             receivers = ['dthompson@nib-bahamas.com']
             msg = MIMEText(str(error))
 
-            msg['Subject'] = 'ERROR CONNECTION TO '+DB+' ON '+SRV+' FAILED'
+            msg['Subject'] = f'ERROR CONNECTION TO {DB} ON {SRV} FAILED'
             msg['From'] = 'pyalert@nib-bahamas.com'
             msg['To'] = 'dthompson@nib-bahamas.com'
 
