@@ -33,12 +33,12 @@ def TestDBConnect (SRV, UID, PWD):
             Logs.append(str(error))
 
             sender = 'pyalert@nib-bahamas.com'
-            receivers = ['dthompson@nib-bahamas.com']
+            receivers = ['ITInfraOps@nib-bahamas.com', 'dthompson@nib-bahamas.com']
             msg = MIMEText(str(error))
 
             msg['Subject'] = f'ERROR CONNECTION TO {DB} ON {SRV} FAILED'
             msg['From'] = 'pyalert@nib-bahamas.com'
-            msg['To'] = 'dthompson@nib-bahamas.com'
+            msg['To'] = 'ITInfraOps@nib-bahamas.com'
 
             with smtplib.SMTP(os.environ.get('SMTPSERVER'), os.environ.get('SMTPPORT'), os.environ.get('SMTPHOSTNAME')) as server:
 
