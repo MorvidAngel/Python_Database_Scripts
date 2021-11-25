@@ -25,7 +25,7 @@ receivers = ['ITInfraOps@nib-bahamas.com', 'dthompson@nib-bahamas.com']
 
 msg = MIMEText(connLog)
 
-msg['Subject'] = 'Availibility Group Connection Test'
+msg['Subject'] = 'Availability Group Connection Test'
 msg['From'] = 'pyalert@nib-bahamas.com'
 msg['To'] = 'ITInfraOps@nib-bahamas.com'
 
