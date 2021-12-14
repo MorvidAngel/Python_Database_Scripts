@@ -9,11 +9,11 @@ import smtplib
 username=os.environ.get('DBUID')
 
 ##Running TestDBConnection for each microsoft sql server instance
-TestDBConnect(os.environ.get('INSQL01'), username, os.environ.get('DBPWD01'))
+TestDBConnect(os.environ.get('SQLINS01'), username, os.environ.get('DBPWD01'))
 
-TestDBConnect(os.environ.get('INSQL02'), username, os.environ.get('DBPWD02'))
+TestDBConnect(os.environ.get('SQLINS02'), username, os.environ.get('DBPWD02'))
 
-TestDBConnect(os.environ.get('INSQL03'), username, os.environ.get('DBPWD03'))
+TestDBConnect(os.environ.get('SQLINS03'), username, os.environ.get('DBPWD03'))
 
 ##Once all TestDBConnect has been run for all instances send an email with the log results
 connLog = ""
