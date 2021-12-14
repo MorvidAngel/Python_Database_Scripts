@@ -28,8 +28,6 @@ try:
   print(f'Connecting to database...{BackupDb}')
   DBConn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+f'{SRV};DATABASE={BackupDb};UID={UID};PWD={PWD}')
 
-
-
   if DBConn is not None:
       print(f'Connection to database...{BackupDb} was successful, attempting to backup')
 
@@ -41,5 +39,6 @@ try:
         pass
       DBConn.autocommit = False
       DBConn.close()
+      
 except (Exception, pyodbc.Error) as error:
   print(str(error))
