@@ -19,7 +19,7 @@ elif SRV == os.environ.get('SQLINS03'):
   PWD = os.environ.get('DBPWD01') 
 else:
   print ("No Password stored for that instance")
-  PWD = Input('Enter Password: ')
+  PWD = input('Enter Password: ')
 
 DBConn = None
 
