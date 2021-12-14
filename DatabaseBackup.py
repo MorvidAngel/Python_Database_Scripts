@@ -7,6 +7,7 @@ load_dotenv()  # take environment variables from .env.
 
 BackupInst = input('Enter Instance: ')
 BackupDb = input('Enter Database: ')
+BackupFol = input('Enter Folder Destination')
 
 SRV = os.environ.get(BackupInst)
 UID = os.environ.get('DBUID')
@@ -32,10 +33,10 @@ try:
   if DBConn is not None:
       print(f'Connection to database...{BackupDb} was successful, attempting to backup')
 
-      Disk = (f'D:\Backups_Inst1\{BackupDb.replace(" ", "")}.bak')
+      Disk = (f'{BackupFol}\{BackupDb.replace(" ", "")}.bak')
       cursor = DBConn.cursor()
       DBConn.autocommit = True
-      cursor.execute(f"BACKUP DATABASE [{BackupDb}] TO DISK = '{Disk}' with compression").fetchall
+      cursor.execute(f"BACKUP DATABASE [{BackupDb}] TO DISK = N'{Disk}' with compression").fetchall
       while cursor.nextset():
         pass
       DBConn.autocommit = False
