@@ -41,4 +41,5 @@ try:
       DBConn.close()
       
 except (Exception, pyodbc.Error) as error:
+  print(f'Connection to database {BackupDb} failed')
   print(str(error))
