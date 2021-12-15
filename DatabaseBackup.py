@@ -1,12 +1,14 @@
 import os
 import pyodbc 
 from dotenv import load_dotenv
+import datetime
 load_dotenv()  # take environment variables from .env.
+
 
 
 BackupInst = input('Enter Instance: ')
 BackupDb = input('Enter Database: ')
-BackupFol = input('Enter Folder Destination')
+BackupFol = input('Enter Folder Destination: ')
 
 SRV = os.environ.get(BackupInst)
 UID = os.environ.get('DBUID')
@@ -14,9 +16,9 @@ UID = os.environ.get('DBUID')
 if SRV == os.environ.get('SQLINS01'):
   PWD = os.environ.get('DBPWD01') 
 elif SRV == os.environ.get('SQLINS02'):
-  PWD = os.environ.get('DBPWD01') 
+  PWD = os.environ.get('DBPWD02') 
 elif SRV == os.environ.get('SQLINS03'):
-  PWD = os.environ.get('DBPWD01') 
+  PWD = os.environ.get('DBPWD03') 
 else:
   print ("No Password stored for that instance")
   PWD = input('Enter Password: ')
@@ -29,8 +31,8 @@ try:
 
   if DBConn is not None:
       print(f'Connection to database...{BackupDb} was successful, attempting to backup')
-
-      Disk = (f'{BackupFol}\{BackupDb.replace(" ", "")}.bak')
+      Date = datetime.datetime.today().strftime ('%m%d%y')
+      Disk = (f'{BackupFol}\{BackupDb.replace(" ", "_")}{Date}.bak')
       cursor = DBConn.cursor()
       DBConn.autocommit = True
       cursor.execute(f"BACKUP DATABASE [{BackupDb}] TO DISK = N'{Disk}' with compression").fetchall
