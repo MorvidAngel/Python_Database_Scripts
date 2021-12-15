@@ -4,7 +4,6 @@ from dotenv import load_dotenv
 load_dotenv()  # take environment variables from .env.
 
 
-
 BackupInst = input('Enter Instance: ')
 BackupDb = input('Enter Database: ')
 BackupFol = input('Enter Folder Destination')
