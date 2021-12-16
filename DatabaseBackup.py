@@ -30,6 +30,7 @@ try:
   DBConn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+f'{SRV};DATABASE={BackupDb};UID={UID};PWD={PWD}')
 
   if DBConn is not None:
+    try:
       print(f'Connection to database...{BackupDb} was successful, attempting to backup')
       Date = datetime.datetime.today().strftime ('%m%d%y')
       Disk = (f'{BackupFol}\{BackupDb.replace(" ", "_")}{Date}.bak')
@@ -40,6 +41,10 @@ try:
         pass
       DBConn.autocommit = False
       DBConn.close()
+
+    except (Exception, pyodbc.Error) as error:
+      print(f'Failed to preform backup for {BackupDb}')
+      print(str(error))
       
 except (Exception, pyodbc.Error) as error:
   print(f'Connection to database {BackupDb} failed')
