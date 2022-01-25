@@ -1,6 +1,5 @@
 import pyodbc 
 import os
-import datetime
 from email.mime.text import MIMEText
 import smtplib
 
@@ -11,11 +10,21 @@ Logs = []
 def TestDBConnect (SRV, UID, PWD):
     ##Setting databases to check based on server instance
     if SRV == os.environ.get('SQLINS01'):
-        databases = ['AfterMail_TEMP', 'ArchiveManager', 'Audit Store', 'Audit Store Old', 'ConfigDb', 'ConfigDB-Dev', 'ConfigMgmt', 'Content', 'Content Old', 'HEATDiscoveryConfig', 'HEATMetricsCache', 'HEATSM', 'HEATSM-UAT', 'sem5']
+        databases = [
+                     'AfterMail_TEMP', 'ArchiveManager', 'Audit Store', 'Audit Store Old', 'ConfigDb', 'ConfigDB-Dev', 
+                     'ConfigMgmt', 'Content', 'Content Old', 'HEATDiscoveryConfig', 'HEATMetricsCache', 'HEATSM', 
+                     'HEATSM-UAT', 'sem5'
+                    ]
     if SRV == os.environ.get('SQLINS02'):
-        databases = ['IdentityDirector', 'IvantiEPM', 'IvntAuto', 'SEEMSDb2', 'solarwindsdba', 'ReportServer', 'SolarWindsOrionLog', 'SolarWindsNetFlowStorage']
+        databases = [
+                     'IdentityDirector', 'IvantiEPM', 'IvntAuto', 'SEEMSDb2', 'solarwindsdba', 'ReportServer', 
+                     'SolarWindsOrionLog', 'SolarWindsNetFlowStorage'
+                    ]
     if SRV == os.environ.get('SQLINS03'):
-        databases = ['Audit Store', 'Cognos', 'DSM', 'DYNAMICS', 'FileBoundProd', 'NDP', 'NIB', 'ov_txtsrch', 'SpecsIDBadging', 'TMATE_DBPRD']
+        databases = [
+                     'Audit Store', 'Cognos', 'DSM', 'DYNAMICS', 'FileBoundProd', 'NDP', 'NIB', 'ov_txtsrch', 
+                     'SpecsIDBadging', 'TMATE_DBPRD'
+                    ]
 
     conn = None
 
