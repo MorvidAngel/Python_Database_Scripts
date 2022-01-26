@@ -1,7 +1,6 @@
 import smtplib
 
-from database_connection import test_db_connection, pyalert_email, recipient, logs
-from dotenv import load_dotenv
+from database_connection import test_db_connection, logs
 from email.mime.text import MIMEText
 from config import *
 
