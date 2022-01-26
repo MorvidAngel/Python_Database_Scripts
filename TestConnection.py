@@ -1,10 +1,10 @@
 from DatabaseConnection import *
 from dotenv import load_dotenv
-load_dotenv()  # take environment variables from .env.
 from email.mime.text import MIMEText
 import smtplib
 
-
+# take environment variables from .env
+load_dotenv() 
 
 username=os.environ.get('DBUID')
 
@@ -14,6 +14,7 @@ TestDBConnect(os.environ.get('SQLINS01'), username, os.environ.get('DBPWD01'))
 TestDBConnect(os.environ.get('SQLINS02'), username, os.environ.get('DBPWD02'))
 
 TestDBConnect(os.environ.get('SQLINS03'), username, os.environ.get('DBPWD03'))
+
 
 ##Once all TestDBConnect has been run for all instances send an email with the log results
 connLog = ""
