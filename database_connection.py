@@ -3,7 +3,7 @@ import smtplib
 
 from email.mime.text import MIMEText
 from queries.check_avail_group import check_avail_group
-from config import pyalert_email, recipient, smtp_host, smtp_port, smtp_server
+from config import pyalert_email, recipient1, smtp_host, smtp_port, smtp_server
 
 logs= ['Connection Attempt:']
 
@@ -31,12 +31,12 @@ def test_db_connection (srv, uid, pwd):
             logs.append(f'<p>{DB[0]}:<span style="color: red">  Failed</span></p>')
 
             sender = pyalert_email
-            receivers = recipient
+            receivers = recipient1
             msg = MIMEText(str(error))
 
             msg['Subject'] = f'ERROR CONNECTION TO {DB[0]} ON {srv} FAILED'
             msg['From'] = pyalert_email
-            msg['To'] = recipient
+            msg['To'] = recipient1
 
             server = smtplib.SMTP(smtp_server, smtp_port, smtp_host)
 
