@@ -1,4 +1,3 @@
-from cgitb import html
 import smtplib
 
 from database_connection import test_db_connection, pyalert_email, recipient, logs
@@ -22,14 +21,15 @@ for l in logs:
 
 sender = pyalert_email
 receivers = recipient
-
 msg = MIMEText(conn_log, "html")
-
 msg['Subject'] = 'Availability Group Connection Test'
 msg['From'] = pyalert_email
 msg['To'] = recipient
 
 server = smtplib.SMTP(smtp_server, smtp_port, smtp_host)
+
 server.sendmail(sender, receivers, msg.as_string())
+
 print("Successfully sent email")
+
 server.quit()

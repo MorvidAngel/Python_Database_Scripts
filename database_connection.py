@@ -10,11 +10,11 @@ logs= ['Connection Attempt:']
 def test_db_connection (srv, uid, pwd):
     #Connecting to master database
     connection = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+f'{srv};DATABASE=master;UID={uid};PWD={pwd}')
-    
     cursor = connection.cursor()
 
     #Query to return a list of databases that belong to any of the existing availability groups depending on the instance passed
     cursor.execute(check_avail_group)
+
     result = cursor.fetchall()
 
     #Loops through each database returned by the query
@@ -33,7 +33,6 @@ def test_db_connection (srv, uid, pwd):
             sender = pyalert_email
             receivers = recipient1
             msg = MIMEText(str(error))
-
             msg['Subject'] = f'ERROR CONNECTION TO {DB[0]} ON {srv} FAILED'
             msg['From'] = pyalert_email
             msg['To'] = recipient1
