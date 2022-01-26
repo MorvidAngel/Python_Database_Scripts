@@ -32,17 +32,24 @@ dbconn = None
 #Attempts to connect to the database
 try:
   print(f'Connecting to database...{backupdb}')
+
   dbconn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+f'{srv};DATABASE={backupdb};UID={db_uid};pwd={pwd}')
 
   #If connection successfull attempts to create a backup based on parameters previously entered
   if dbconn is not None:
     try:
       print(f'Connection to database...{backupdb} was successful, attempting to backup')
+
       date = datetime.datetime.today().strftime ('%m%d%y')
+
       disk = (f'{backupfol}\{backupdb.replace(" ", "_")}{date}.bak')
+
       cursor = dbconn.cursor()
+
       dbconn.autocommit = True
-      cursor.execute(f"BACKUP DATABASE [{backupdb}] TO DISK = N'{disk}' with compression").fetchall
+
+      cursor.execute(f"BACKUP DATABASE [{backupdb}] TO DISK = N'{disk}' with compression")
+      
       while cursor.nextset():
         pass
       dbconn.autocommit = False
