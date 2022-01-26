@@ -32,7 +32,9 @@ def test_db_connection (srv, uid, pwd):
 
             sender = pyalert_email
             receivers = recipient1
+
             msg = MIMEText(str(error))
+            
             msg['Subject'] = f'ERROR CONNECTION TO {DB[0]} ON {srv} FAILED'
             msg['From'] = pyalert_email
             msg['To'] = recipient1

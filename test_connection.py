@@ -21,7 +21,9 @@ for l in logs:
 
 sender = pyalert_email
 receivers = recipient
+
 msg = MIMEText(conn_log, "html")
+
 msg['Subject'] = 'Availability Group Connection Test'
 msg['From'] = pyalert_email
 msg['To'] = recipient
