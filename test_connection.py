@@ -6,11 +6,10 @@ from config import *
 
 
 ##Running TestDBConnection for each microsoft sql server instance
-test_db_connection(sql_ins_01, db_uid, db_pwd_01)
 
-test_db_connection(sql_ins_02, db_uid, db_pwd_02)
-
-test_db_connection(sql_ins_03, db_uid, db_pwd_03)
+for x in server_list:
+  test_db_connection(x["server"], db_uid, x["password"])
+  
 
 ##Once all TestDBConnect has been run for all instances send an email with the log results
 
