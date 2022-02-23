@@ -3,6 +3,7 @@ import smtplib
 
 from email.mime.text import MIMEText
 from queries.check_avail_group import check_avail_group
+from queries.get_server_name import get_server_name
 from config import pyalert_email, recipient1, smtp_host, smtp_port, smtp_server
 
 logs= ['Connection Attempt:']
@@ -17,6 +18,10 @@ def test_db_connection (srv, uid, pwd):
 
     result = cursor.fetchall()
 
+    cursor.execute(get_server_name)
+
+    servername = cursor.fetchone()
+
     #Loops through each database returned by the query
     for DB in result:
         ##Attempting to connect to database 
@@ -24,7 +29,7 @@ def test_db_connection (srv, uid, pwd):
             conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+f'{srv};DATABASE={DB[0]};UID={uid};PWD={pwd}')
 
             if conn is not None:
-                logs.append(f'<p>{DB[0]}:<span style="color: green">  Succeeded</span></p>')
+                logs.append(f'<p>{servername[0]} - {DB[0]}:<span style="color: green">  Succeeded</span></p>')
                 conn.close()
         ##Send email with error and which database the error occurred with should connection fail to establish
         except (Exception, pyodbc.Error) as error:
