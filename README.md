@@ -5,7 +5,6 @@ To clone and run this application, you'll need [Git](https://git-scm.com) and [p
 From your command line:
 
 ```bash
-# Clone this repository
 $ git clone https://github.com/DevThompson/Python_Database_Scripts
 ```
 
