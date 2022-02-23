@@ -33,7 +33,7 @@ def test_db_connection (srv, uid, pwd):
                 conn.close()
         ##Send email with error and which database the error occurred with should connection fail to establish
         except (Exception, pyodbc.Error) as error:
-            logs.append(f'<p>{DB[0]}:<span style="color: red">  Failed</span></p>')
+            logs.append(f'<p>{servername[0]} - {DB[0]}:<span style="color: red">  Failed</span></p>')
 
             sender = pyalert_email
             receivers = recipient1
