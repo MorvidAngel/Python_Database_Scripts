@@ -18,8 +18,6 @@ check_avail_group="""
                       LEFT OUTER JOIN 
                         master.sys.dm_hadr_database_replica_states AS dbrs
                           ON dbcs.replica_id = dbrs.replica_id AND dbcs.group_database_id = dbrs.group_database_id
-              WHERE
-                    AG.name in ('AVG_SQLN01', 'AVG_SQLN02', 'AVG_SQLN03')
               ORDER BY 
                     AG.name ASC
                   , dbcs.database_name
