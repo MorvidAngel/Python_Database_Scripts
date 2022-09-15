@@ -8,9 +8,11 @@ from config import *
 ##Running TestDBConnection for each microsoft sql server instance
 
 for x in server_list:
-  test_AG_connection(x["server"], db_uid, x["password"])
-  test_online_connection(x["server2"], db_uid, x["password"])
+  test_online_connection(x["server"], db_uid, x["password"])
   test_offline_connection(x["server"], db_uid, x["password"])
+  
+  if x["aglistener"] is not None:
+    test_AG_connection(x["aglistener"], db_uid, x["password"])
   
 
 ##Once all TestDBConnect has been run for all instances send an email with the log results
