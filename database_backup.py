@@ -13,10 +13,10 @@ if backupinst == 'SQLINS01':
   pwd = db_pwd_01
 elif backupinst == 'SQLINS02':
   srv = sql_ins_02
-  pwd = db_pwd_02
+  pwd = db_pwd_01
 elif backupinst == 'SQLINS03':
   srv = sql_ins_03
-  pwd = db_pwd_03
+  pwd = db_pwd_01
 else:
   print ("No password stored for that server")
   srv = backupinst

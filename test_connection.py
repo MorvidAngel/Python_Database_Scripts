@@ -15,8 +15,7 @@ for x in server_list:
     test_AG_connection(x["aglistener"], db_uid, x["password"])
   
 
-##Once all TestDBConnect has been run for all instances send an email with the log results
-
+##Initialize logs
 agl_email_log = ""
 onl_email_log = ""
 ofl_email_log = ""
