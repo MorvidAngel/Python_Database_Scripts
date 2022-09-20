@@ -77,7 +77,7 @@ def test_online_connection (srv, uid, pwd):
             conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+f'{srv};DATABASE={DB[0]};UID={uid};PWD={pwd}')
 
             if conn is not None:
-                online_logs.append(f'<p>{servername[0]} - {DB[0]}:<span style="color: green">  ONLINE</span></p>')
+                online_logs.append(f'<p>{servername[0]} - {DB[0]}:<span style="color: green">  Connection Successful</span></p>')
                 conn.close()
         ##Send email with error and which database the error occurred with should connection fail to establish
         except (Exception, pyodbc.Error) as error:
