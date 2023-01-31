@@ -89,7 +89,6 @@ def test_online_connection (srv, uid, pwd):
     #Connecting to master database
     connstr = 'DRIVER={ODBC Driver 17 for SQL Server};SERVER='+f'{srv};DATABASE=master;UID={uid};PWD={pwd}'
     try:
-        print(connstr)
         connection = pyodbc.connect(connstr)
 
         if connection is not None:
