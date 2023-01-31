@@ -33,7 +33,7 @@ for ofl in offline_logs:
     ofl_email_log = ofl_email_log + ofl
 
 sender = pyalert_email
-receivers = recipient1
+receivers = recipient
 
 msg = MIMEText(agl_email_log, "html")
 msg2 = MIMEText(onl_email_log, "html")
@@ -41,15 +41,15 @@ msg3 = MIMEText(ofl_email_log, "html")
 
 msg['Subject'] = 'Availability Group Connection Test'
 msg['From'] = pyalert_email
-msg['To'] = recipient1
+msg['To'] = recipient
 
 msg2['Subject'] = 'Online Database Report'
 msg2['From'] = pyalert_email
-msg2['To'] = recipient1
+msg2['To'] = recipient
 
 msg3['Subject'] = 'Offline Database Report'
 msg3['From'] = pyalert_email
-msg3['To'] = recipient1
+msg3['To'] = recipient
 
 server = smtplib.SMTP(smtp_server, smtp_port, smtp_host)
 
