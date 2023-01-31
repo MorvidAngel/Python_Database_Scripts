@@ -14,23 +14,52 @@ offline_logs=['Offline Databases:']
 
 def test_AG_connection (srv, uid, pwd):
     #Connecting to master database
-    connection = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+f'{srv};DATABASE=master;UID={uid};PWD={pwd}')
-    cursor = connection.cursor()
+    connstr = 'DRIVER={ODBC Driver 17 for SQL Server};SERVER='+f'{srv};DATABASE=master;UID={uid};PWD={pwd}'
 
-    #Query to return a list of databases that belong to any of the existing availability groups depending on the instance passed
-    cursor.execute(check_avail_group)
+    try:
+        connection = pyodbc.connect(connstr)
 
-    result = cursor.fetchall()
+        if connection is not None:
+            cursor = connection.cursor()
 
-    cursor.execute(get_server_name)
+            #Query to return a list of databases that belong to any of the existing availability groups depending on the instance passed
+            cursor.execute(check_avail_group)
 
-    servername = cursor.fetchone()
+            result = cursor.fetchall()
+
+            cursor.execute(get_server_name)
+
+            servername = cursor.fetchone()
+    except (Exception, pyodbc.Error) as error:
+
+            ag_logs.append(f'<p>{srv}:<span style="color: red">  Connection Failed</span></p>')
+
+            sender = pyalert_email
+            receivers = recipient
+
+            msg = MIMEText(str(error))
+            
+            msg['Subject'] = f'ERROR CONNECTION TO {srv} FAILED'
+            msg['From'] = pyalert_email
+            msg['To'] = recipient
+
+            server = smtplib.SMTP(smtp_server, smtp_port, smtp_host)
+
+            server.connect()
+            
+            server.sendmail(sender, receivers, msg.as_string())
+
+            server.quit()
+
+            return
+
 
     #Loops through each database returned by the query
     for DB in result:
-        ##Attempting to connect to database 
+        #Attempting to connect to database
+        conndbstr = 'DRIVER={ODBC Driver 17 for SQL Server};SERVER='+f'{srv};DATABASE={DB[0]};UID={uid};PWD={pwd}'
         try:
-            conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+f'{srv};DATABASE={DB[0]};UID={uid};PWD={pwd}')
+            conn = pyodbc.connect(conndbstr)
 
             if conn is not None:
                 ag_logs.append(f'<p>{servername[0]} - {DB[0]}:<span style="color: green">  Connection Successful</span></p>')
@@ -58,23 +87,49 @@ def test_AG_connection (srv, uid, pwd):
 
 def test_online_connection (srv, uid, pwd):
     #Connecting to master database
-    connection = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+f'{srv};DATABASE=master;UID={uid};PWD={pwd}')
-    cursor = connection.cursor()
+    connstr = 'DRIVER={ODBC Driver 17 for SQL Server};SERVER='+f'{srv};DATABASE=master;UID={uid};PWD={pwd}'
+    try:
+        print(connstr)
+        connection = pyodbc.connect(connstr)
 
-    #Query to return a list of databases that are listed as online
-    cursor.execute(check_online_db)
+        if connection is not None:
+            cursor = connection.cursor()
 
-    result = cursor.fetchall()
+            #Query to return a list of databases that are listed as online
+            cursor.execute(check_online_db)
 
-    cursor.execute(get_server_name)
+            result = cursor.fetchall()
 
-    servername = cursor.fetchone()
+            cursor.execute(get_server_name)
 
+            servername = cursor.fetchone()
+    except (Exception, pyodbc.Error) as error:
+            ag_logs.append(f'<p>{srv}:<span style="color: red">  Connection Failed</span></p>')
+
+            sender = pyalert_email
+            receivers = recipient
+
+            msg = MIMEText(str(error))
+            
+            msg['Subject'] = f'ERROR CONNECTION TO {srv} FAILED'
+            msg['From'] = pyalert_email
+            msg['To'] = recipient
+
+            server = smtplib.SMTP(smtp_server, smtp_port, smtp_host)
+
+            server.connect()
+            
+            server.sendmail(sender, receivers, msg.as_string())
+
+            server.quit()
+
+            return
     #Loops through each database returned by the query
     for DB in result:
-        ##Attempting to connect to database 
+        #Attempting to connect to database 
+        conndbstr = 'DRIVER={ODBC Driver 17 for SQL Server};SERVER='+f'{srv};DATABASE={DB[0]};UID={uid};PWD={pwd}'
         try:
-            conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+f'{srv};DATABASE={DB[0]};UID={uid};PWD={pwd}')
+            conn = pyodbc.connect(conndbstr)
 
             if conn is not None:
                 online_logs.append(f'<p>{servername[0]} - {DB[0]}:<span style="color: green">  Connection Successful</span></p>')
@@ -102,7 +157,8 @@ def test_online_connection (srv, uid, pwd):
 
 def test_offline_connection (srv, uid, pwd):
     #Connecting to master database
-    connection = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+f'{srv};DATABASE=master;UID={uid};PWD={pwd}')
+    connstr = 'DRIVER={ODBC Driver 17 for SQL Server};SERVER='+f'{srv};DATABASE=master;UID={uid};PWD={pwd}'
+    connection = pyodbc.connect(connstr)
     cursor = connection.cursor()
 
     #Query to return a list of databases that are listed as offline
