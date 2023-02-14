@@ -3,6 +3,7 @@ import smtplib
 from database_connection import test_AG_connection, test_offline_connection, test_online_connection, ag_logs, online_logs, offline_logs
 from email.mime.text import MIMEText
 from config import *
+from send_mail import send_smt_email
 
 
 ##Running TestDBConnection for each microsoft sql server instance
@@ -51,12 +52,6 @@ msg3['Subject'] = 'Offline Database Report'
 msg3['From'] = pyalert_email
 msg3['To'] = recipient
 
-server = smtplib.SMTP(smtp_server, smtp_port, smtp_host)
-
-server.sendmail(sender, receivers, msg.as_string())
-server.sendmail(sender, receivers, msg2.as_string())
-server.sendmail(sender, receivers, msg3.as_string())
-
-print("Successfully sent email")
-
-server.quit()
+send_smt_email(sender, receivers, msg)
+send_smt_email(sender, receivers, msg2)
+send_smt_email(sender, receivers, msg3)
