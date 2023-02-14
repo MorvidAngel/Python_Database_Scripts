@@ -146,6 +146,10 @@ def test_offline_connection (srv, uid, pwd):
       cursor.execute(get_server_name)
 
       servername = cursor.fetchone()
+      #Loops through each database returned by the query
+      for DB in result:
+          ##Adds log for each offline database
+              offline_logs.append(f'<p>{servername[0]} - {DB[0]}:<span style="color: red">  OFFLINE</span></p>')
     except (Exception, pyodbc.Error) as error:
       ag_logs.append(f'<p>{srv}:<span style="color: red">  Connection Failed</span></p>')
 
@@ -159,8 +163,5 @@ def test_offline_connection (srv, uid, pwd):
       msg['To'] = recipient
 
       send_smt_email(sender, receivers, msg)
-    #Loops through each database returned by the query
-    for DB in result:
-        ##Adds log for each offline database
-            offline_logs.append(f'<p>{servername[0]} - {DB[0]}:<span style="color: red">  OFFLINE</span></p>')
+
             
