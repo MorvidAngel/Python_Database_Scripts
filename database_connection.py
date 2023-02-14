@@ -134,18 +134,31 @@ def test_online_connection (srv, uid, pwd):
 def test_offline_connection (srv, uid, pwd):
     #Connecting to master database
     connstr = 'DRIVER={ODBC Driver 17 for SQL Server};SERVER='+f'{srv};DATABASE=master;UID={uid};PWD={pwd}'
-    connection = pyodbc.connect(connstr)
-    cursor = connection.cursor()
+    try:
+      connection = pyodbc.connect(connstr)
+      cursor = connection.cursor()
 
-    #Query to return a list of databases that are listed as offline
-    cursor.execute(check_offline_db)
+      #Query to return a list of databases that are listed as offline
+      cursor.execute(check_offline_db)
 
-    result = cursor.fetchall()
+      result = cursor.fetchall()
 
-    cursor.execute(get_server_name)
+      cursor.execute(get_server_name)
 
-    servername = cursor.fetchone()
+      servername = cursor.fetchone()
+    except (Exception, pyodbc.Error) as error:
+      ag_logs.append(f'<p>{srv}:<span style="color: red">  Connection Failed</span></p>')
 
+      sender = pyalert_email
+      receivers = recipient
+
+      msg = MIMEText(str(error))
+      
+      msg['Subject'] = f'ERROR CONNECTION TO {srv} FAILED'
+      msg['From'] = pyalert_email
+      msg['To'] = recipient
+
+      send_smt_email(sender, receivers, msg)
     #Loops through each database returned by the query
     for DB in result:
         ##Adds log for each offline database
