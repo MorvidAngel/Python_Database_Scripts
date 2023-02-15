@@ -18,7 +18,7 @@ def test_AG_connection (srv, uid, pwd):
     connstr = 'DRIVER={ODBC Driver 17 for SQL Server};SERVER='+f'{srv};DATABASE=master;UID={uid};PWD={pwd}'
 
     try:
-        connection = pyodbc.connect(connstr)
+        connection = pyodbc.connect(connstr, timeout = 200)
 
         if connection is not None:
             cursor = connection.cursor()
@@ -54,7 +54,7 @@ def test_AG_connection (srv, uid, pwd):
         #Attempting to connect to database
         conndbstr = 'DRIVER={ODBC Driver 17 for SQL Server};SERVER='+f'{srv};DATABASE={DB[0]};UID={uid};PWD={pwd}'
         try:
-            conn = pyodbc.connect(conndbstr)
+            conn = pyodbc.connect(conndbstr, timeout = 200)
 
             if conn is not None:
                 ag_logs.append(f'<p>{servername[0]} - {DB[0]}:<span style="color: green">  Connection Successful</span></p>')
@@ -78,7 +78,7 @@ def test_online_connection (srv, uid, pwd):
     #Connecting to master database
     connstr = 'DRIVER={ODBC Driver 17 for SQL Server};SERVER='+f'{srv};DATABASE=master;UID={uid};PWD={pwd}'
     try:
-        connection = pyodbc.connect(connstr)
+        connection = pyodbc.connect(connstr, timeout = 200)
 
         if connection is not None:
             cursor = connection.cursor()
@@ -111,7 +111,7 @@ def test_online_connection (srv, uid, pwd):
         #Attempting to connect to database 
         conndbstr = 'DRIVER={ODBC Driver 17 for SQL Server};SERVER='+f'{srv};DATABASE={DB[0]};UID={uid};PWD={pwd}'
         try:
-            conn = pyodbc.connect(conndbstr)
+            conn = pyodbc.connect(conndbstr, timeout = 200)
 
             if conn is not None:
                 online_logs.append(f'<p>{servername[0]} - {DB[0]}:<span style="color: green">  Connection Successful</span></p>')
@@ -135,7 +135,7 @@ def test_offline_connection (srv, uid, pwd):
     #Connecting to master database
     connstr = 'DRIVER={ODBC Driver 17 for SQL Server};SERVER='+f'{srv};DATABASE=master;UID={uid};PWD={pwd}'
     try:
-      connection = pyodbc.connect(connstr)
+      connection = pyodbc.connect(connstr, timeout = 200)
       cursor = connection.cursor()
 
       #Query to return a list of databases that are listed as offline
