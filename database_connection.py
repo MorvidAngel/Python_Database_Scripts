@@ -31,6 +31,8 @@ def test_AG_connection (srv, uid, pwd):
             cursor.execute(get_server_name)
 
             servername = cursor.fetchone()
+
+            connection.close()
     except (Exception, pyodbc.Error) as error:
 
             ag_logs.append(f'<p>{srv}:<span style="color: red">  Connection Failed</span></p>')
@@ -91,6 +93,8 @@ def test_online_connection (srv, uid, pwd):
             cursor.execute(get_server_name)
 
             servername = cursor.fetchone()
+
+            connection.close()
     except (Exception, pyodbc.Error) as error:
             ag_logs.append(f'<p>{srv}:<span style="color: red">  Connection Failed</span></p>')
 
@@ -146,6 +150,8 @@ def test_offline_connection (srv, uid, pwd):
       cursor.execute(get_server_name)
 
       servername = cursor.fetchone()
+
+      connection.close()
       #Loops through each database returned by the query
       for DB in result:
           ##Adds log for each offline database
