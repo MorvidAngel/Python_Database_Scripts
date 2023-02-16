@@ -1,5 +1,3 @@
-import smtplib
-
 from database_connection import test_AG_connection, test_offline_connection, test_online_connection, ag_logs, online_logs, offline_logs
 from email.mime.text import MIMEText
 from config import *

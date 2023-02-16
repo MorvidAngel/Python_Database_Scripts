@@ -1,12 +1,11 @@
 import pyodbc 
-import smtplib
 
 from email.mime.text import MIMEText
 from queries.check_avail_group import check_avail_group
 from queries.check_online_db import check_online_db
 from queries.check_offline_db import check_offline_db
 from queries.get_server_name import get_server_name
-from config import pyalert_email, recipient, smtp_host, smtp_port, smtp_server
+from config import pyalert_email, recipient
 from send_mail import send_smt_email
 
 ag_logs= ['Availability Group Databases:']
