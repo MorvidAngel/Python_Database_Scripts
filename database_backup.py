@@ -35,7 +35,7 @@ try:
 
   dbconn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+f'{srv};DATABASE={backupdb};UID={db_uid};pwd={pwd}')
 
-  #If connection successfull attempts to create a backup based on parameters previously entered
+  #If connection successful attempts to create a backup based on parameters previously entered
   if dbconn is not None:
     try:
       print(f'Connection to database...{backupdb} was successful, attempting to backup')
